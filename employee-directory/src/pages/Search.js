@@ -15,9 +15,11 @@ class Search extends Component {
   // When the component mounts, get a list of all employees and update this.state.employees
   componentDidMount() {
     API.search()
-      .then(res => this.setState({ employees: res.data.message }))
+      .then(res => {const employees = res.data.results.map(employees => ({name: res.name}));
+      this.setState({employees})})
       .catch(err => console.log(err));
   }
+
 
   handleInputChange = event => {
     this.setState({ search: event.target.value });
