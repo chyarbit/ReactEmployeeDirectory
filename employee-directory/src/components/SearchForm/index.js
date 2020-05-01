@@ -26,6 +26,9 @@ function SearchForm(props) {
         <button type="submit" onClick={props.handleFormSubmit} className="btn btn-success">
           Search
         </button>
+        <button type="submit" onClick={props.handleClear} className="btn btn-success">
+          Clear
+        </button>
       </div>
     </form>
   );

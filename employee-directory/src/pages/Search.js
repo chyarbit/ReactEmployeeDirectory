@@ -16,7 +16,7 @@ class Search extends Component {
   componentDidMount() {
     API.search()
       .then(res => {
-      this.setState({employees: res.data.results})})
+      this.setState({employees: res.data.results, results: res.data.results})})
       .catch(err => console.log(err));
   }
 
@@ -27,15 +27,22 @@ class Search extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    API.search(this.state.search)
-      .then(res => {
-        if (res.data.status === "error") {
-          throw new Error(res.data.message);
-        }
-        this.setState({ results: res.data.message, error: "" });
-      })
-      .catch(err => this.setState({ error: err.message }));
+    let searchResults = this.state.employees.filter(employees => {
+      let employeeFullName = (employees.name.first + " " + employees.name.last).toLowerCase()
+      if (employeeFullName.includes(this.state.search.toLowerCase())){
+        return true
+      } 
+      else{
+        return false
+      }
+    })
+    this.setState({results: searchResults})
   };
+
+  handleClear = event => {
+    event.preventDefault();
+    this.setState({results: this.state.employees})
+  }
   
   render() {
     return (
