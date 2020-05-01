@@ -15,7 +15,9 @@ class Search extends Component {
   // When the component mounts, get a list of all employees and update this.state.employees
   componentDidMount() {
     API.search()
-      .then(res => {const employees = res.data.results.map(employees => ({name: res.name}));
+      .then(res => {
+      const employees = res.data.results.map(employees => ({firstName: employees.name.first, lastName: employees.name.last}));
+      //console.log(employees);
       this.setState({employees})})
       .catch(err => console.log(err));
   }
@@ -40,6 +42,7 @@ class Search extends Component {
   render() {
     return (
       <div>
+        {console.log("CHECK THIS ONE", this.state.employees)}
         <Container style={{ minHeight: "80%" }}>
           <h1 className="text-center">Employee Search</h1>
           <SearchForm
