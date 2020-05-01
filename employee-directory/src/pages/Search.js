@@ -16,9 +16,7 @@ class Search extends Component {
   componentDidMount() {
     API.search()
       .then(res => {
-      const employees = res.data.results.map(employees => ({firstName: employees.name.first, lastName: employees.name.last}));
-      //console.log(employees);
-      this.setState({employees})})
+      this.setState({employees: res.data.results})})
       .catch(err => console.log(err));
   }
 
